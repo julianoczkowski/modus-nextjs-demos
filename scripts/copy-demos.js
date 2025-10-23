@@ -10,6 +10,8 @@ const path = require("path");
 
 function copyDemos() {
   try {
+    console.log("🚀 Modus Next.js Demos - Postinstall script running...");
+    
     // Get the package directory (where this script is located)
     const packageDir = path.dirname(__dirname);
     const demosSourceDir = path.join(packageDir, "demos");
@@ -43,6 +45,8 @@ function copyDemos() {
 
     if (!foundNextApp) {
       console.log("⚠️  Could not find Next.js app root. Skipping demo copy.");
+      console.log("💡  This package is designed for Next.js applications.");
+      console.log("💡  Make sure you're installing this in a Next.js project with an 'app' directory.");
       return;
     }
 
@@ -50,6 +54,8 @@ function copyDemos() {
     const appDir = path.join(appRoot, "app");
     if (!fs.existsSync(appDir)) {
       console.log('⚠️  No "app" directory found. Skipping demo copy.');
+      console.log("💡  This package requires Next.js 13+ with the App Router.");
+      console.log("💡  Make sure your Next.js project has an 'app' directory.");
       return;
     }
 
