@@ -1,6 +1,6 @@
 {
   "name": "@julianoczkowski/modus-nextjs-demos",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Demo pages for Modus Web Components Next.js integration",
   "main": "index.js",
   "scripts": {
