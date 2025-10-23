@@ -44,20 +44,28 @@ function copyDemos() {
     }
 
     if (!foundNextApp) {
-      console.log("⚠️  Could not find Next.js app root. Skipping demo copy.");
-      console.log("💡  This package is designed for Next.js applications.");
-      console.log(
-        "💡  Make sure you're installing this in a Next.js project with an 'app' directory."
-      );
+      console.log("");
+      console.log("❌ No Next.js Modus project found!");
+      console.log("⚠️  This package is designed specifically for Next.js applications.");
+      console.log("💡  To use this package:");
+      console.log("   1. Create a Next.js project: npx create-next-app@latest my-app");
+      console.log("   2. Install this package in the Next.js project");
+      console.log("   3. The demo pages will be automatically copied to app/demos/");
+      console.log("");
       return;
     }
 
     // Check if app directory exists
     const appDir = path.join(appRoot, "app");
     if (!fs.existsSync(appDir)) {
-      console.log('⚠️  No "app" directory found. Skipping demo copy.');
-      console.log("💡  This package requires Next.js 13+ with the App Router.");
-      console.log("💡  Make sure your Next.js project has an 'app' directory.");
+      console.log("");
+      console.log("❌ No Next.js App Router found!");
+      console.log("⚠️  This package requires Next.js 13+ with the App Router.");
+      console.log("💡  To use this package:");
+      console.log("   1. Make sure you're using Next.js 13+ with App Router");
+      console.log("   2. Your project should have an 'app' directory");
+      console.log("   3. Create the app directory: mkdir app");
+      console.log("");
       return;
     }
 
