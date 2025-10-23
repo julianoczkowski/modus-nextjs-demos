@@ -5,3 +5,4 @@ console.log("Modus Next.js Demos package loaded successfully!");
 console.log(
   "Demo pages will be automatically copied to your app/demos/ directory."
 );
+
