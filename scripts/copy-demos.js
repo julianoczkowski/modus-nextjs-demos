@@ -11,15 +11,22 @@ const path = require("path");
 function copyDemos() {
   try {
     console.log("🚀 Modus Next.js Demos - Postinstall script running...");
-
+    
     // Get the package directory (where this script is located)
     const packageDir = path.dirname(__dirname);
     const demosSourceDir = path.join(packageDir, "demos");
+    
+    // Check if we're in a valid directory structure
+    if (!fs.existsSync(demosSourceDir)) {
+      console.log("❌ Demo source directory not found. Package may be corrupted.");
+      return;
+    }
 
     // Find the consuming app's root directory
     // Look for package.json with Next.js dependency
     let appRoot = process.cwd();
     let foundNextApp = false;
+    let nextVersion = null;
 
     // Walk up the directory tree to find Next.js app
     while (appRoot !== path.dirname(appRoot)) {
@@ -34,6 +41,7 @@ function copyDemos() {
             packageJson.devDependencies?.next
           ) {
             foundNextApp = true;
+            nextVersion = packageJson.dependencies?.next || packageJson.devDependencies?.next;
             break;
           }
         } catch (e) {
@@ -58,7 +66,15 @@ function copyDemos() {
         "   3. The demo pages will be automatically copied to app/demos/"
       );
       console.log("");
+      console.log("💡  If you're having dependency conflicts, try:");
+      console.log("   npm install @julianoczkowski/modus-nextjs-demos --legacy-peer-deps");
+      console.log("");
       return;
+    }
+
+    // Log Next.js version found
+    if (nextVersion) {
+      console.log(`✅ Found Next.js ${nextVersion} in ${appRoot}`);
     }
 
     // Check if app directory exists
