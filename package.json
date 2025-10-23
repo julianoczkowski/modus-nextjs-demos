@@ -10,6 +10,10 @@
     "next": "^15.0.0",
     "react": "^19.0.0"
   },
+  "files": [
+    "demos/",
+    "scripts/"
+  ],
   "keywords": [
     "modus",
     "nextjs",
@@ -17,14 +21,14 @@
     "components",
     "trimble"
   ],
-  "author": "julianoczkowski",
+  "author": "Juliano Czkowski",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/julianoczkowski/modus-nextjs-demos.git"
   },
-  "homepage": "https://github.com/julianoczkowski/modus-nextjs-demos#readme",
   "bugs": {
     "url": "https://github.com/julianoczkowski/modus-nextjs-demos/issues"
-  }
+  },
+  "homepage": "https://github.com/julianoczkowski/modus-nextjs-demos#readme"
 }

@@ -1,126 +1,112 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 /**
  * Postinstall script to copy demo pages to the consuming Next.js app
  * This script runs automatically after npm install
  */
 
-const DEMO_SOURCE_DIR = path.join(__dirname, '..', 'demos');
-const DEMO_TARGET_DIR = path.join(process.cwd(), 'app', 'demos');
-
-function log(message) {
-  console.log(`[modus-nextjs-demos] ${message}`);
-}
-
-function checkNextJsProject() {
-  const packageJsonPath = path.join(process.cwd(), 'package.json');
-  if (!fs.existsSync(packageJsonPath)) {
-    return false;
-  }
-  
+function copyDemos() {
   try {
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    return packageJson.dependencies?.next || packageJson.devDependencies?.next;
-  } catch (error) {
-    return false;
-  }
-}
+    // Get the package directory (where this script is located)
+    const packageDir = path.dirname(__dirname);
+    const demosSourceDir = path.join(packageDir, "demos");
 
-function createTargetDirectory() {
-  const appDir = path.join(process.cwd(), 'app');
-  if (!fs.existsSync(appDir)) {
-    log('Creating app directory...');
-    fs.mkdirSync(appDir, { recursive: true });
-  }
-  
-  if (!fs.existsSync(DEMO_TARGET_DIR)) {
-    log('Creating app/demos directory...');
-    fs.mkdirSync(DEMO_TARGET_DIR, { recursive: true });
-  }
-}
+    // Find the consuming app's root directory
+    // Look for package.json with Next.js dependency
+    let appRoot = process.cwd();
+    let foundNextApp = false;
 
-function copyDemoFolder(sourcePath, targetPath) {
-  if (!fs.existsSync(sourcePath)) {
-    return false;
-  }
-  
-  if (fs.existsSync(targetPath)) {
-    log(`Demo folder already exists: ${path.basename(targetPath)}`);
-    return true;
-  }
-  
-  try {
-    fs.mkdirSync(targetPath, { recursive: true });
-    
-    const items = fs.readdirSync(sourcePath);
-    for (const item of items) {
-      const sourceItemPath = path.join(sourcePath, item);
-      const targetItemPath = path.join(targetPath, item);
-      
-      if (fs.statSync(sourceItemPath).isDirectory()) {
-        copyDemoFolder(sourceItemPath, targetItemPath);
-      } else {
-        fs.copyFileSync(sourceItemPath, targetItemPath);
+    // Walk up the directory tree to find Next.js app
+    while (appRoot !== path.dirname(appRoot)) {
+      const packageJsonPath = path.join(appRoot, "package.json");
+      if (fs.existsSync(packageJsonPath)) {
+        try {
+          const packageJson = JSON.parse(
+            fs.readFileSync(packageJsonPath, "utf8")
+          );
+          if (
+            packageJson.dependencies?.next ||
+            packageJson.devDependencies?.next
+          ) {
+            foundNextApp = true;
+            break;
+          }
+        } catch (e) {
+          // Continue searching
+        }
       }
+      appRoot = path.dirname(appRoot);
     }
-    
-    log(`Copied demo: ${path.basename(targetPath)}`);
-    return true;
+
+    if (!foundNextApp) {
+      console.log("⚠️  Could not find Next.js app root. Skipping demo copy.");
+      return;
+    }
+
+    // Check if app directory exists
+    const appDir = path.join(appRoot, "app");
+    if (!fs.existsSync(appDir)) {
+      console.log('⚠️  No "app" directory found. Skipping demo copy.');
+      return;
+    }
+
+    // Create demos directory in the app
+    const demosTargetDir = path.join(appDir, "demos");
+    if (!fs.existsSync(demosTargetDir)) {
+      fs.mkdirSync(demosTargetDir, { recursive: true });
+    }
+
+    // Copy all demo folders
+    const demoFolders = fs
+      .readdirSync(demosSourceDir, { withFileTypes: true })
+      .filter((dirent) => dirent.isDirectory())
+      .map((dirent) => dirent.name);
+
+    let copiedCount = 0;
+
+    for (const demoFolder of demoFolders) {
+      const sourcePath = path.join(demosSourceDir, demoFolder);
+      const targetPath = path.join(demosTargetDir, demoFolder);
+
+      // Copy the entire demo folder
+      copyDirectory(sourcePath, targetPath);
+      copiedCount++;
+    }
+
+    console.log(
+      `✅ Successfully copied ${copiedCount} demo pages to ${demosTargetDir}`
+    );
+    console.log("📁 Demo pages are now available at /demos/* routes");
+    console.log(
+      "🔗 Navigate to /demos/components-demo to see all available demos"
+    );
   } catch (error) {
-    log(`Error copying ${path.basename(targetPath)}: ${error.message}`);
-    return false;
+    console.error("❌ Error copying demo pages:", error.message);
+    process.exit(1);
   }
 }
 
-function copyAllDemos() {
-  if (!fs.existsSync(DEMO_SOURCE_DIR)) {
-    log('No demos directory found in package');
-    return;
+function copyDirectory(source, target) {
+  if (!fs.existsSync(target)) {
+    fs.mkdirSync(target, { recursive: true });
   }
-  
-  const demoFolders = fs.readdirSync(DEMO_SOURCE_DIR);
-  let copiedCount = 0;
-  
-  for (const demoFolder of demoFolders) {
-    const sourcePath = path.join(DEMO_SOURCE_DIR, demoFolder);
-    const targetPath = path.join(DEMO_TARGET_DIR, demoFolder);
-    
+
+  const items = fs.readdirSync(source);
+
+  for (const item of items) {
+    const sourcePath = path.join(source, item);
+    const targetPath = path.join(target, item);
+
     if (fs.statSync(sourcePath).isDirectory()) {
-      if (copyDemoFolder(sourcePath, targetPath)) {
-        copiedCount++;
-      }
+      copyDirectory(sourcePath, targetPath);
+    } else {
+      fs.copyFileSync(sourcePath, targetPath);
     }
   }
-  
-  if (copiedCount > 0) {
-    log(`Successfully copied ${copiedCount} demo pages to app/demos/`);
-    log('Demo pages are now available at /demos/* routes in your Next.js app');
-  } else {
-    log('No demo pages were copied');
-  }
 }
 
-function main() {
-  log('Starting demo pages installation...');
-  
-  // Check if this is a Next.js project
-  if (!checkNextJsProject()) {
-    log('Warning: This does not appear to be a Next.js project');
-    log('Demo pages will still be copied, but may not work correctly');
-  }
-  
-  // Create target directory
-  createTargetDirectory();
-  
-  // Copy all demos
-  copyAllDemos();
-  
-  log('Demo installation complete!');
-  log('Visit your app at /demos/components-demo to see all available demos');
-}
-
-// Run the script
-main();
+// Run the copy function
+copyDemos();

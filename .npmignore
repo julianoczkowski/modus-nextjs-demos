@@ -1,54 +1,44 @@
-# Development files
-.git
-.github
-.gitignore
+# Only include demos folder - exclude everything else
+
+# Exclude all root files
 README.md
+index.js
+package.json
 package-lock.json
 yarn.lock
 
-# Scripts (keep copy-demos.js)
-scripts/
-!scripts/copy-demos.js
-
-# Documentation
-docs/
-*.md
-!README.md
-
-# IDE files
+# Exclude all directories except demos/ and scripts/
+.git/
+.github/
+node_modules/
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Test files
 test/
 tests/
 __tests__/
-*.test.js
-*.test.ts
-*.spec.js
-*.spec.ts
-
-# Build files
+docs/
 dist/
 build/
 .next/
-out/
 
-# Environment files
+# Exclude all other files
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.tmp
+*.temp
+*.test.js
+*.spec.js
+*.md
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Exclude everything at root level
+/*
+!demos/

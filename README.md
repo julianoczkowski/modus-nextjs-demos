@@ -1,6 +1,6 @@
 # Modus Next.js Demos
 
-Demo pages for [Modus Web Components](https://github.com/trimble-oss/modus-web-components) Next.js integration.
+Demo pages for Modus Web Components Next.js integration. This package automatically provides demo pages for all Modus Web Components in your Next.js application.
 
 ## Installation
 
@@ -8,43 +8,34 @@ Demo pages for [Modus Web Components](https://github.com/trimble-oss/modus-web-c
 npm install @julianoczkowski/modus-nextjs-demos
 ```
 
-## What This Package Does
+The demo pages will be automatically copied to your `app/demos/` directory during installation.
 
-This package automatically copies all Modus Web Components demo pages to your Next.js app's `app/demos/` directory. The demo pages are ready-to-use and demonstrate various Modus components with proper styling and functionality.
+## What's Included
 
-## Automatic Setup
+This package includes demo pages for:
 
-After installation, the package will:
-
-1. **Detect your Next.js project** - Ensures you're installing in a compatible environment
-2. **Create `app/demos/` directory** - If it doesn't exist
-3. **Copy all demo pages** - Automatically copies ~40 demo pages
-4. **Preserve existing demos** - Won't overwrite if you already have demos
-
-## Demo Pages Included
-
-- **Button Demo** - All button variants, sizes, and states
-- **Card Demo** - Card layouts and variations
-- **Modal Demo** - Modal dialogs and overlays
-- **Form Components** - Input, Select, Checkbox, Radio, etc.
-- **Navigation** - Navbar, Side Navigation, Breadcrumbs
-- **Data Display** - Table, Badge, Avatar, Chip
-- **Feedback** - Alert, Toast, Progress, Loader
-- **Layout** - Accordion, Tabs, Divider, Toolbar
-- **And many more...**
+- **Forms**: Button, Checkbox, Date, Number Input, Radio, Select, Switch, Text Input, Textarea, Time Input
+- **Layout**: Accordion, Card, Divider, Toolbar, Utility Panel
+- **Navigation**: Breadcrumbs, Dropdown Menu, Menu, Navbar, Pagination, Side Navigation, Stepper, Tabs
+- **Display**: Avatar, Badge, Chip, Icon, Skeleton
+- **Feedback**: Alert, Input Feedback, Input Label, Loader, Progress, Toast, Tooltip
+- **Overlays**: Modal
+- **Data**: Table
+- **Appearance**: Theme Switcher
 
 ## Usage
 
-After installation, you can navigate to:
+After installation, the demo pages are available at:
 
-- `/demos/components-demo` - Overview of all components
-- `/demos/button-demo` - Button component examples
-- `/demos/modal-demo` - Modal component examples
-- `/demos/[component]-demo` - Any specific component demo
+- `/demos/components-demo` - Overview of all available components
+- `/demos/button-demo` - Button component demos
+- `/demos/modal-demo` - Modal component demos
+- `/demos/table-demo` - Table component demos
+- And many more...
 
 ## Component Imports
 
-The demo pages use the standard Next.js import pattern:
+The demo pages use the standard Next.js path aliases:
 
 ```tsx
 import ModusButton from "@/app/components/ModusButton";
@@ -54,88 +45,51 @@ import DemoExample from "@/app/components/DemoExample";
 
 ## Requirements
 
-- **Next.js 15+** - App Router required
-- **React 19+** - Latest React version
-- **Modus Web Components** - Your app should have Modus components installed
+- Next.js 15+
+- React 19+
+- Modus Web Components React package
 
-## File Structure
+## How It Works
 
-After installation, your `app/demos/` directory will contain:
+1. **Installation**: When you install this package, the postinstall script automatically runs
+2. **Detection**: The script detects your Next.js app structure
+3. **Copy**: All demo pages are copied to `app/demos/` directory
+4. **Ready**: Demo pages are immediately available at `/demos/*` routes
 
-```
-app/demos/
-├── accordion-demo/
-├── alert-demo/
-├── autocomplete-demo/
-├── avatar-demo/
-├── badge-demo/
-├── breadcrumbs-demo/
-├── button-demo/
-├── card-demo/
-├── checkbox-demo/
-├── chip-demo/
-├── components-demo/
-├── date-demo/
-├── divider-demo/
-├── dropdown-demo/
-├── input-feedback-demo/
-├── input-label-demo/
-├── loader-demo/
-├── menu-demo/
-├── modal-demo/
-├── navbar-demo/
-├── number-input-demo/
-├── pagination-demo/
-├── progress-demo/
-├── radio-demo/
-├── rating-demo/
-├── select-demo/
-├── side-navigation-demo/
-├── skeleton-demo/
-├── slider-demo/
-├── stepper-demo/
-├── switch-demo/
-├── table-demo/
-├── tabs-demo/
-├── text-input-demo/
-├── textarea-demo/
-├── theme-switcher-demo/
-├── time-input-demo/
-├── toast-demo/
-├── toolbar-demo/
-├── tooltip-demo/
-└── utility-panel-demo/
-```
+## Manual Setup
+
+If automatic installation doesn't work, you can manually copy the demos:
+
+1. Copy the `demos/` folder from `node_modules/@julianoczkowski/modus-nextjs-demos/`
+2. Paste it into your `app/` directory
+3. Rename it to `demos` if needed
 
 ## Troubleshooting
 
 ### Demos Not Appearing
 
-If demo pages don't appear after installation:
+If the demo pages don't appear after installation:
 
-1. **Check console output** - Look for installation messages
-2. **Verify Next.js project** - Ensure you're in a Next.js app directory
-3. **Check app/demos/ directory** - Verify the directory was created
-4. **Reinstall package** - Try `npm uninstall` then `npm install` again
+1. Check that you have an `app/` directory in your Next.js project
+2. Verify the installation completed successfully
+3. Look for any error messages during `npm install`
+4. Try running the postinstall script manually: `node node_modules/@julianoczkowski/modus-nextjs-demos/scripts/copy-demos.js`
 
 ### Import Errors
 
-If you see import errors:
+If you see import errors in the demo pages:
 
-1. **Verify component paths** - Ensure your components are in `app/components/`
-2. **Check Next.js config** - Ensure `@/` alias points to your app directory
-3. **Verify Modus components** - Ensure Modus Web Components are installed
+1. Ensure you have the required Modus Web Components installed:
+   ```bash
+   npm install @trimble-oss/moduswebcomponents-react
+   ```
+2. Check that your Next.js path aliases are configured correctly
+3. Verify your `app/components/` directory contains the required components
 
-## Development
+## Contributing
 
-This package is designed to work with the [Modus Next.js App](https://github.com/julianoczkowski/modus-next-app) template.
+This package is part of the Modus Next.js integration. For issues or contributions, please visit the [GitHub repository](https://github.com/julianoczkowski/modus-nextjs-demos).
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## Support
-
-- **Issues**: [GitHub Issues](https://github.com/julianoczkowski/modus-nextjs-demos/issues)
-- **Documentation**: [Modus Web Components](https://trimble-oss.github.io/modus-wc-2.0/main/)
-- **Main App**: [Modus Next.js App](https://github.com/julianoczkowski/modus-next-app)
+MIT
