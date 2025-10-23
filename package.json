@@ -1,0 +1,30 @@
+{
+  "name": "@julianoczkowski/modus-nextjs-demos",
+  "version": "1.0.0",
+  "description": "Demo pages for Modus Web Components Next.js integration",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/copy-demos.js"
+  },
+  "peerDependencies": {
+    "next": "^15.0.0",
+    "react": "^19.0.0"
+  },
+  "keywords": [
+    "modus",
+    "nextjs",
+    "demos",
+    "components",
+    "trimble"
+  ],
+  "author": "julianoczkowski",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julianoczkowski/modus-nextjs-demos.git"
+  },
+  "homepage": "https://github.com/julianoczkowski/modus-nextjs-demos#readme",
+  "bugs": {
+    "url": "https://github.com/julianoczkowski/modus-nextjs-demos/issues"
+  }
+}
