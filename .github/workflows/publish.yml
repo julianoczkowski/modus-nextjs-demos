@@ -3,22 +3,22 @@ name: Publish to NPM
 on:
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
       - name: Install dependencies
         run: |
           if [ -f package-lock.json ]; then
@@ -26,17 +26,17 @@ jobs:
           else
             npm install
           fi
-        
+
       - name: Run tests (if any)
         run: |
           echo "No tests configured yet"
           # Add test commands here when tests are available
-          
+
       - name: Publish to NPM
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          
+
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
@@ -46,18 +46,18 @@ jobs:
           release_name: Release ${{ github.ref }}
           body: |
             ## What's New
-            
+
             This release includes:
             - Demo pages for Modus Web Components
             - Automatic installation to Next.js apps
             - Postinstall script for seamless setup
-            
+
             ## Installation
-            
+
             ```bash
             npm install @julianoczkowski/modus-nextjs-demos
             ```
-            
+
             The demo pages will be automatically copied to your `app/demos/` directory.
           draft: false
           prerelease: false
