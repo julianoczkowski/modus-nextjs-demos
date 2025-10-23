@@ -46,11 +46,17 @@ function copyDemos() {
     if (!foundNextApp) {
       console.log("");
       console.log("❌ No Next.js Modus project found!");
-      console.log("⚠️  This package is designed specifically for Next.js applications.");
+      console.log(
+        "⚠️  This package is designed specifically for Next.js applications."
+      );
       console.log("💡  To use this package:");
-      console.log("   1. Create a Next.js project: npx create-next-app@latest my-app");
+      console.log(
+        "   1. Create a Next.js project: npx create-next-app@latest my-app"
+      );
       console.log("   2. Install this package in the Next.js project");
-      console.log("   3. The demo pages will be automatically copied to app/demos/");
+      console.log(
+        "   3. The demo pages will be automatically copied to app/demos/"
+      );
       console.log("");
       return;
     }
