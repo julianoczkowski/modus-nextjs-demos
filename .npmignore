@@ -20,6 +20,7 @@ docs/
 dist/
 build/
 .next/
+readme_assets/
 
 # Exclude all other files
 *.log
@@ -38,7 +39,20 @@ Thumbs.db
 .env.development.local
 .env.test.local
 .env.production.local
+*.gif
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.svg
+*.ico
+*.bmp
+*.tiff
+*.tif
+*.heic
+*.heif
 
 # Exclude everything at root level
 /*
 !demos/
+

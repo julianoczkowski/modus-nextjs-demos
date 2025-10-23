@@ -1,11 +1,27 @@
+![Modus Next.js Boilerplate Hero](readme_assets/hero.png)
+
+[![Publish](https://github.com/julianoczkowski/modus-nextjs-demos/actions/workflows/publish.yml/badge.svg)](https://github.com/julianoczkowski/modus-nextjs-demos/actions/workflows/publish.yml)
+[![node](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 # Modus Next.js Demos
 
 Demo pages for Modus Web Components Next.js integration. This package automatically provides demo pages for all Modus Web Components in your Next.js application.
+
+## Prerequisites
+
+🔥 You will need the main boilerplate Next.js Modus 2 Web Componenents app which can be found here: https://github.com/julianoczkowski/modus-next-app
 
 ## Installation
 
 ```bash
 npm install @julianoczkowski/modus-nextjs-demos
+```
+
+If you get any version errors use:
+
+```bash
+npm install @julianoczkowski/modus-nextjs-demos --legacy-peer-deps
 ```
 
 The demo pages will be automatically copied to your `app/demos/` directory during installation.
@@ -22,6 +38,8 @@ This package includes demo pages for:
 - **Overlays**: Modal
 - **Data**: Table
 - **Appearance**: Theme Switcher
+
+![Modus Next.js Demo Pages](readme_assets/teaser_comp.gif)
 
 ## Usage
 
@@ -60,9 +78,8 @@ import DemoExample from "@/app/components/DemoExample";
 
 If automatic installation doesn't work, you can manually copy the demos:
 
-1. Copy the `demos/` folder from `node_modules/@julianoczkowski/modus-nextjs-demos/`
+1. Copy the `demos/` folder from this repo
 2. Paste it into your `app/` directory
-3. Rename it to `demos` if needed
 
 ## Troubleshooting
 
@@ -73,7 +90,6 @@ If the demo pages don't appear after installation:
 1. Check that you have an `app/` directory in your Next.js project
 2. Verify the installation completed successfully
 3. Look for any error messages during `npm install`
-4. Try running the postinstall script manually: `node node_modules/@julianoczkowski/modus-nextjs-demos/scripts/copy-demos.js`
 
 ### Import Errors
 
@@ -90,6 +106,34 @@ If you see import errors in the demo pages:
 
 This package is part of the Modus Next.js integration. For issues or contributions, please visit the [GitHub repository](https://github.com/julianoczkowski/modus-nextjs-demos).
 
+## Support & Resources
+
+- [Modus Web Components Documentation](https://trimble-oss.github.io/modus-wc-2.0/main/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React 19 Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+
 ## License
 
-MIT
+MIT License - see LICENSE file for details.
+
+---
+
+## Ready to Build! 🚀
+
+**Ready to build amazing applications with Modus Design System and Next.js 15!**
+
+This demo pages repo provides everything you need to see what can be build using the main boilerplate.
+
+---
+
+## Creator
+
+### Made with ❤️ by [Julian Oczkowski](https://github.com/julianoczkowski)
+
+Lead Product Designer bridging UX & Code • Building AI-driven tools, design systems, and digital products
+
+🎥 [YouTube](https://www.youtube.com/@julianoczkowski) • 💼 [LinkedIn](https://linkedin.com/in/julianoczkowski) • 🌐 [Website](https://www.julianoczkowski.com)
+
+Created for the Trimble community and developers worldwide 🌍
